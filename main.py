@@ -4,7 +4,7 @@ from selection import *
 import time
 
 print("Program: Airport KLM Writer ")
-print("Release: 1.1.0")
+print("Release: 1.1.1")
 print("Date: 2019-11-26")
 print("Author: Brian Neely")
 print()
