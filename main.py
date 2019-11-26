@@ -4,7 +4,7 @@ from selection import *
 import time
 
 print("Program: Airport KLM Writer ")
-print("Release: 1.1.1")
+print("Release: 1.1.2")
 print("Date: 2019-11-26")
 print("Author: Brian Neely")
 print()
@@ -20,6 +20,9 @@ Tk().withdraw()
 
 # Predefine Country Selection as False
 cntry_slctn = False
+
+# Initialized Country Selection
+selected_countries = list()
 
 # Upload a list of IATA Codes
 if y_n_question("Upload File of IATA Codes (y/n): "):
@@ -126,10 +129,10 @@ airport_dest['key'] = 0
 # Cartesian Join
 cart_join_start_time = time.time()
 print()
-print("(" + str(round(time.time() - start_time,2)) + " s) Performing Cartesian Join on tables...")
+print("(" + str(round(time.time() - start_time, 2)) + " s) Performing Cartesian Join on tables...")
 airport_cart = airport_origin.merge(airport_dest, on='key').drop(columns='key')
-print("(" + str(round(time.time() - start_time,2)) + " s) Cartesian Join complete. Join took: " +
-      str(round(time.time() - cart_join_start_time,2)) + "sec")
+print("(" + str(round(time.time() - start_time, 2)) + " s) Cartesian Join complete. Join took: " +
+      str(round(time.time() - cart_join_start_time, 2)) + "sec")
 
 # Only keep rows with valid commercial flight routes.
 if y_n_question("Only include commercial flight routes (Recommended) (y/n): "):
@@ -150,11 +153,13 @@ airport_cart = airport_cart.round({'Origin Lat': 3, 'Origin Long': 3, 'Dest Lat'
 airport_cart = airport_cart.astype({"Origin Long": str, "Origin Lat": str, "Dest Long": str, "Dest Lat": str})
 
 # Create columns for KML in DF
-airport_line = list()
 print()
 print("(" + str(round(time.time() - start_time, 2)) + " s) Creating rows...")
 row_create_strt_time = time.time()
-airport_line = ["<Placemark><name>" + i + " - " + j + "</name><LineString><coordinates>" + k + "," + l + " " + m + "," + n + "</coordinates></LineString></Placemark>" for i, j, k, l, m, n in zip(airport_cart["Origin"], airport_cart["Dest"], airport_cart["Origin Long"], airport_cart["Origin Lat"], airport_cart["Dest Long"], airport_cart["Dest Lat"])]
+airport_line = ["<Placemark><name>" + i + " - " + j + "</name><LineString><coordinates>" + k + "," + l + " " + m + "," +
+                n + "</coordinates></LineString></Placemark>" for i, j, k, l, m, n in
+                zip(airport_cart["Origin"], airport_cart["Dest"], airport_cart["Origin Long"],
+                    airport_cart["Origin Lat"], airport_cart["Dest Long"], airport_cart["Dest Lat"])]
 print("(" + str(round(time.time() - start_time, 2)) + " s) Rows created...")
 
 # Select output file
@@ -186,7 +191,7 @@ out_file.write(lst_kml_line)
 
 # Close and save file
 out_file.close()
-print("(" + str(round(time.time() - start_time,2)) + "sec ) File wrote!")
+print("(" + str(round(time.time() - start_time, 2)) + "sec ) File wrote!")
 
 # Closer
 input("Program Complete. Press Enter to close...")
