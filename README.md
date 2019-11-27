@@ -4,6 +4,7 @@ This program creates a KML file from a list of IATA codes or from its own intern
 The resulting KML file can be used with software like Tableau to create curved flight paths instead of straight line with ease.
 
   To use with list of IATA codes
+  
       Open either the main.exe or main.py
       Question: Upload File of IATA Codes (y/n): 
         Input: y
@@ -15,6 +16,7 @@ The resulting KML file can be used with software like Tableau to create curved f
       Input: [Enter]
 
   To use without list of IATA Codes
+  
       Open either the main.exe or main.py
       Question: Upload File of IATA Codes (y/n): 
         Input: n
@@ -30,6 +32,7 @@ The resulting KML file can be used with software like Tableau to create curved f
       Input: [Enter]
 
   How to use KML with Tableau
+  
       Open Tableau
       Drag KML file into Tablaeu 
       With the new data source, drag Geometry onto the canvas
