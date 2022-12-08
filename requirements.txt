@@ -1,4 +1,4 @@
-certifi==2019.9.11
+certifi==2022.12.7
 mkl-fft==1.0.15
 mkl-random==1.1.0
 mkl-service==2.3.0
